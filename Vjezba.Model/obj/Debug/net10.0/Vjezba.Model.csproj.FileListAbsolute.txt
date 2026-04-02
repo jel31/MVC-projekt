@@ -1,0 +1,14 @@
+/Users/jelenaknezovic/ASP/Vjezba.Model/bin/Debug/net10.0/Vjezba.Model
+/Users/jelenaknezovic/ASP/Vjezba.Model/bin/Debug/net10.0/Vjezba.Model.deps.json
+/Users/jelenaknezovic/ASP/Vjezba.Model/bin/Debug/net10.0/Vjezba.Model.runtimeconfig.json
+/Users/jelenaknezovic/ASP/Vjezba.Model/bin/Debug/net10.0/Vjezba.Model.dll
+/Users/jelenaknezovic/ASP/Vjezba.Model/bin/Debug/net10.0/Vjezba.Model.pdb
+/Users/jelenaknezovic/ASP/Vjezba.Model/obj/Debug/net10.0/Vjezba.Model.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jelenaknezovic/ASP/Vjezba.Model/obj/Debug/net10.0/Vjezba.Model.AssemblyInfoInputs.cache
+/Users/jelenaknezovic/ASP/Vjezba.Model/obj/Debug/net10.0/Vjezba.Model.AssemblyInfo.cs
+/Users/jelenaknezovic/ASP/Vjezba.Model/obj/Debug/net10.0/Vjezba.Model.csproj.CoreCompileInputs.cache
+/Users/jelenaknezovic/ASP/Vjezba.Model/obj/Debug/net10.0/Vjezba.Model.dll
+/Users/jelenaknezovic/ASP/Vjezba.Model/obj/Debug/net10.0/refint/Vjezba.Model.dll
+/Users/jelenaknezovic/ASP/Vjezba.Model/obj/Debug/net10.0/Vjezba.Model.pdb
+/Users/jelenaknezovic/ASP/Vjezba.Model/obj/Debug/net10.0/Vjezba.Model.genruntimeconfig.cache
+/Users/jelenaknezovic/ASP/Vjezba.Model/obj/Debug/net10.0/ref/Vjezba.Model.dll

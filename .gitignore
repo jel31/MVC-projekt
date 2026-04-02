@@ -1,0 +1,31 @@
+## Ignore build outputs
+/bin/
+/obj/
+
+## Visual Studio cache and settings
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Rider
+.idea/
+
+## NuGet
+*.nupkg
+packages/
+
+## Dotnet publish
+/publish/
+
+## Logs
+*.log
+
+## VS Code
+.vscode/
+
+## Temporary files
+*~
+~$*
+.DS_Store

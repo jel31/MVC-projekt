@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "type": "command",
+        "command": "mkdir -p .github/hooks && cat >> .github/hooks/agent_log.txt",
+        "windows": "powershell.exe -ExecutionPolicy Bypass -Command \"$input | Add-Content -Path '.github\\hooks\\agent_log.txt'\""
+      }
+    ],
+    "PreToolUse": [
+      {
+        "type": "command",
+        "command": "mkdir -p .github/hooks && cat >> .github/hooks/agent_log.txt",
+        "windows": "powershell.exe -ExecutionPolicy Bypass -Command \"$input | Add-Content -Path '.github\\hooks\\agent_log.txt'\""
+      }
+    ]
+  }
+}
