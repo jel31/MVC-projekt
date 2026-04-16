@@ -1,0 +1,75 @@
+@model IReadOnlyList<Vjezba.Model.Booking>
+
+@{
+    ViewData["Title"] = "Rezervacije";
+
+    string StatusLabel(BookingStatus status) => status switch
+    {
+        BookingStatus.Pending => "Na čekanju",
+        BookingStatus.Confirmed => "Potvrđeno",
+        BookingStatus.Completed => "Završeno",
+        BookingStatus.Cancelled => "Otkazano",
+        _ => status.ToString()
+    };
+
+    string StatusClass(BookingStatus status) => status switch
+    {
+        BookingStatus.Pending => "badge-soft status-pending",
+        BookingStatus.Confirmed => "badge-soft status-confirmed",
+        BookingStatus.Completed => "badge-soft status-completed",
+        BookingStatus.Cancelled => "badge-soft status-cancelled",
+        _ => "badge-soft"
+    };
+}
+
+<section class="page-header" aria-labelledby="bookings-title">
+    <div>
+        <span class="eyebrow">Raspored šetnji</span>
+        <h1 id="bookings-title">Rezervacije</h1>
+        <p class="page-subtitle">Pregledajte svaku šetnju prema vlasniku, šetaču, terminu i statusu.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Payments", "Home")">Pogledaj uplate</a>
+        <a class="btn btn-outline" href="@Url.Action("Index", "Home")">Natrag na početnu</a>
+    </div>
+</section>
+
+@if (!Model.Any())
+{
+    <section class="empty-state" aria-live="polite">
+        <h2>Još nema rezervacija</h2>
+        <p>Kada dodate vlasnike i šetače, ovdje ćete planirati prve šetnje.</p>
+        <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Vrati se na početnu</a>
+    </section>
+}
+else
+{
+    <section class="entity-grid" aria-label="Popis rezervacija">
+        @foreach (var booking in Model)
+        {
+            <article class="entity-card">
+                <div class="entity-card__title">
+                    <div>
+                        <h2>Rezervacija #@booking.Id</h2>
+                        <p class="entity-card__meta">@booking.StartTime.ToString("dd.MM.yyyy HH:mm") - @booking.EndTime.ToString("HH:mm")</p>
+                    </div>
+                    <span class="@StatusClass(booking.Status)">@StatusLabel(booking.Status)</span>
+                </div>
+
+                <div class="entity-tags">
+                    <span class="entity-tag">Vlasnik: @booking.Owner.Name @booking.Owner.Surname</span>
+                    <span class="entity-tag">Šetač: @booking.DogWalker.Name @booking.DogWalker.Surname</span>
+                </div>
+
+                <p class="entity-card__summary">
+                    <strong>Psi:</strong>
+                    @(booking.Dogs.Any() ? string.Join(", ", booking.Dogs.Select(d => d.Name)) : "Nema dodanih pasa.")
+                </p>
+
+                <div class="entity-card__actions">
+                    <a class="btn btn-primary" href="@Url.Action("Booking", "Home", new { id = booking.Id })">Detalji</a>
+                </div>
+            </article>
+        }
+    </section>
+}

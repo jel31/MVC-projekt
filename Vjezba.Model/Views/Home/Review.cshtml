@@ -1,0 +1,52 @@
+@model Vjezba.Model.Review
+
+@{
+    ViewData["Title"] = "Detalji recenzije";
+}
+
+<section class="page-header" aria-labelledby="review-title">
+    <div>
+        <span class="eyebrow">Detalji recenzije</span>
+        <h1 id="review-title" class="fx-text-lift">@Model.Owner.Name @Model.Owner.Surname</h1>
+        <p class="page-subtitle">Kratak pogled na dojam nakon šetnje.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Reviews", "Home")">Natrag na popis</a>
+        <a class="btn btn-outline" href="@Url.Action("Walker", "Home", new { id = Model.DogWalker.Id })">Šetač</a>
+    </div>
+</section>
+
+<section class="detail-layout detail-layout--entity">
+    <article class="detail-card detail-card--wide">
+        <div class="section-title">
+            <h2 class="fx-text-lift">Ocjena i komentar</h2>
+            <span class="badge-count">⭐ @Model.Rating.ToString("F1") / 5</span>
+        </div>
+
+        <div class="field-list">
+            <div class="field-row">
+                <span class="field-label">Datum</span>
+                <span class="field-value">@Model.Date.ToString("dd.MM.yyyy HH:mm")</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Šetač</span>
+                <span class="field-value">@Model.DogWalker.Name @Model.DogWalker.Surname</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Vlasnik</span>
+                <span class="field-value">@Model.Owner.Name @Model.Owner.Surname</span>
+            </div>
+        </div>
+
+        <p class="detail-summary">@Model.Comment</p>
+    </article>
+
+    <aside class="detail-side">
+        <article class="detail-card detail-card--section">
+            <div class="section-title">
+                <h2 class="fx-text-lift">Kontekst</h2>
+            </div>
+            <p class="muted-note">Ova recenzija je povezana sa šetačem @Model.DogWalker.Name @Model.DogWalker.Surname i vlasnikom @Model.Owner.Name @Model.Owner.Surname.</p>
+        </article>
+    </aside>
+</section>

@@ -1,0 +1,96 @@
+@model Vjezba.Model.DogWalker
+
+@{
+    ViewData["Title"] = "Detalji šetača";
+}
+
+<section class="page-header" aria-labelledby="walker-title">
+    <div>
+        <span class="eyebrow">Detalji šetača</span>
+        <h1 id="walker-title" class="fx-text-lift">@Model.Name @Model.Surname</h1>
+        <p class="page-subtitle">Podaci, cijena po satu, rezervacije i recenzije.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Walkers", "Home")">Natrag na popis</a>
+        <a class="btn btn-outline" href="@Url.Action("Index", "Home")">Početna</a>
+    </div>
+</section>
+
+<section class="detail-layout detail-layout--entity">
+    <article class="detail-card detail-card--wide">
+        <div class="section-title">
+            <h2 class="fx-text-lift">Osnovni podaci</h2>
+            <span class="badge-count">⭐ Ocjena @Model.AverageRating.ToString("F1")</span>
+        </div>
+
+        <div class="field-list">
+            <div class="field-row">
+                <span class="field-label">E-pošta</span>
+                <span class="field-value">@Model.Email</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Telefon</span>
+                <span class="field-value">@Model.PhoneNumber</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Adresa</span>
+                <span class="field-value">@Model.Address</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Cijena po satu</span>
+                <span class="field-value">€@Model.HourlyRate.ToString("F2")</span>
+            </div>
+        </div>
+
+        <div class="detail-tags">
+            <span class="detail-tag">@Model.Bookings.Count rezervacija</span>
+            <span class="detail-tag">@Model.Reviews.Count recenzija</span>
+        </div>
+    </article>
+
+    <aside class="detail-side">
+        <article class="detail-card detail-card--section">
+            <div class="section-title">
+                <h2 class="fx-text-lift">Rezervacije</h2>
+            </div>
+            @if (Model.Bookings.Any())
+            {
+                <div class="field-list">
+                    @foreach (var booking in Model.Bookings)
+                    {
+                        <a class="field-row field-row--link" href="@Url.Action("Booking", "Home", new { id = booking.Id })">
+                            <span class="field-label">Rezervacija #@booking.Id</span>
+                            <span class="field-value fx-text-lift">@booking.StartTime.ToString("dd.MM.yyyy HH:mm") · @booking.Owner.Name @booking.Owner.Surname</span>
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="muted-note">Nema rezervacija.</p>
+            }
+        </article>
+
+        <article class="detail-card detail-card--section">
+            <div class="section-title">
+                <h2 class="fx-text-lift">Recenzije</h2>
+            </div>
+            @if (Model.Reviews.Any())
+            {
+                <div class="field-list">
+                    @foreach (var review in Model.Reviews)
+                    {
+                        <a class="field-row field-row--link" href="@Url.Action("Review", "Home", new { id = review.Id })">
+                            <span class="field-label">@review.Owner.Name @review.Owner.Surname</span>
+                            <span class="field-value fx-text-lift">⭐ @review.Rating.ToString("F1") / 5 · @review.Comment</span>
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="muted-note">Nema recenzija.</p>
+            }
+        </article>
+    </aside>
+</section>

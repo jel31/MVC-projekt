@@ -1,0 +1,115 @@
+@model Vjezba.Model.Booking
+
+@{
+    ViewData["Title"] = "Detalji rezervacije";
+    var relatedPayment = SampleData.Payments.FirstOrDefault(payment => payment.Booking.Id == Model.Id);
+
+    string StatusLabel(BookingStatus status) => status switch
+    {
+        BookingStatus.Pending => "Na čekanju",
+        BookingStatus.Confirmed => "Potvrđeno",
+        BookingStatus.Completed => "Završeno",
+        BookingStatus.Cancelled => "Otkazano",
+        _ => status.ToString()
+    };
+
+    string StatusClass(BookingStatus status) => status switch
+    {
+        BookingStatus.Pending => "badge-soft status-pending",
+        BookingStatus.Confirmed => "badge-soft status-confirmed",
+        BookingStatus.Completed => "badge-soft status-completed",
+        BookingStatus.Cancelled => "badge-soft status-cancelled",
+        _ => "badge-soft"
+    };
+}
+
+<section class="page-header" aria-labelledby="booking-title">
+    <div>
+        <span class="eyebrow">Detalji rezervacije</span>
+        <h1 id="booking-title" class="fx-text-lift">Rezervacija #@Model.Id</h1>
+        <p class="page-subtitle">Pregled termina, vlasnika, šetača, pasa i uplate.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Bookings", "Home")">Natrag na popis</a>
+        <a class="btn btn-outline" href="@Url.Action("Payments", "Home")">Uplate</a>
+    </div>
+</section>
+
+<section class="detail-layout detail-layout--entity">
+    <article class="detail-card detail-card--wide">
+        <div class="section-title">
+            <h2 class="fx-text-lift">Osnovni podaci</h2>
+            <span class="@StatusClass(Model.Status)">@StatusLabel(Model.Status)</span>
+        </div>
+
+        <div class="field-list">
+            <div class="field-row">
+                <span class="field-label">Početak</span>
+                <span class="field-value">@Model.StartTime.ToString("dd.MM.yyyy HH:mm")</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Kraj</span>
+                <span class="field-value">@Model.EndTime.ToString("dd.MM.yyyy HH:mm")</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Vlasnik</span>
+                <span class="field-value">@Model.Owner.Name @Model.Owner.Surname</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Šetač</span>
+                <span class="field-value">@Model.DogWalker.Name @Model.DogWalker.Surname</span>
+            </div>
+        </div>
+    </article>
+
+    <aside class="detail-side">
+        <article class="detail-card detail-card--section">
+            <div class="section-title">
+                <h2 class="fx-text-lift">Psi u rezervaciji</h2>
+            </div>
+            @if (Model.Dogs.Any())
+            {
+                <div class="field-list">
+                    @foreach (var dog in Model.Dogs)
+                    {
+                        <a class="field-row field-row--link" href="@Url.Action("Dog", "Home", new { id = dog.Id })">
+                            <span class="field-label">@dog.Name</span>
+                            <span class="field-value fx-text-lift">@dog.Breed · @dog.Owner.Name @dog.Owner.Surname</span>
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="muted-note">Nema dodanih pasa.</p>
+            }
+        </article>
+
+        <article class="detail-card detail-card--section">
+            <div class="section-title">
+                <h2 class="fx-text-lift">Uplata</h2>
+            </div>
+            @if (relatedPayment is not null)
+            {
+                <div class="field-list">
+                    <div class="field-row">
+                        <span class="field-label">Iznos</span>
+                        <span class="field-value">€@relatedPayment.Amount.ToString("F2")</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Način plaćanja</span>
+                        <span class="field-value">@relatedPayment.PaymentMethod</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Status</span>
+                        <span class="field-value">@(relatedPayment.IsSuccessful ? "Uspješno" : "Neuspješno")</span>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p class="muted-note">Nema povezane uplate.</p>
+            }
+        </article>
+    </aside>
+</section>

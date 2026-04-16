@@ -1,0 +1,53 @@
+@model IReadOnlyList<Vjezba.Model.Review>
+
+@{
+    ViewData["Title"] = "Recenzije";
+}
+
+<section class="page-header" aria-labelledby="reviews-title">
+    <div>
+        <span class="eyebrow">Dojmovi korisnika</span>
+        <h1 id="reviews-title">Recenzije</h1>
+        <p class="page-subtitle">Što vlasnici kažu nakon šetnje i kako su ocijenili iskustvo.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Walkers", "Home")">Pogledaj šetače</a>
+        <a class="btn btn-outline" href="@Url.Action("Index", "Home")">Natrag na početnu</a>
+    </div>
+</section>
+
+@if (!Model.Any())
+{
+    <section class="empty-state" aria-live="polite">
+        <h2>Još nema recenzija</h2>
+        <p>Kada vlasnici počnu ostavljati dojmove, ovdje će se pojaviti njihove recenzije.</p>
+        <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Vrati se na početnu</a>
+    </section>
+}
+else
+{
+    <section class="entity-grid" aria-label="Popis recenzija">
+        @foreach (var review in Model)
+        {
+            <article class="entity-card">
+                <div class="entity-card__title">
+                    <div>
+                        <h2>@review.Owner.Name @review.Owner.Surname</h2>
+                        <p class="entity-card__meta">@review.Date.ToString("dd.MM.yyyy HH:mm")</p>
+                    </div>
+                    <span class="badge-count">⭐ @review.Rating.ToString("F1") / 5</span>
+                </div>
+
+                <div class="entity-tags">
+                    <span class="entity-tag">Šetač: @review.DogWalker.Name @review.DogWalker.Surname</span>
+                </div>
+
+                <p class="entity-card__summary">@review.Comment</p>
+
+                <div class="entity-card__actions">
+                    <a class="btn btn-primary" href="@Url.Action("Review", "Home", new { id = review.Id })">Detalji</a>
+                </div>
+            </article>
+        }
+    </section>
+}

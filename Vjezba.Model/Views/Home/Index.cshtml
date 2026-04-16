@@ -1,0 +1,76 @@
+@model Vjezba.Model.HomeViewModel
+
+@{
+    ViewData["Title"] = "Početna";
+}
+
+<section class="home-hero" aria-labelledby="home-title">
+    <div class="home-hero__copy">
+        <span class="eyebrow">Šapice u pokretu</span>
+
+        <div class="home-emoji" aria-hidden="true">🐕‍🦺</div>
+
+        <h1 id="home-title">Šetanje pasa, jasno i jednostavno bez suvišnih koraka!</h1>
+        <p class="lead">Sve je fokusirano na šetnje pasa: šetači, psi i rezervacije na jednom čistom mjestu.</p>
+
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="@Url.Action("Walkers", "Home")">Pogledaj šetače</a>
+            <a class="btn btn-secondary" href="@Url.Action("Bookings", "Home")">Otvori rezervacije</a>
+            <a class="btn btn-outline" href="@Url.Action("Dogs", "Home")">Pogledaj pse</a>
+        </div>
+    </div>
+
+    <aside class="home-hero__panel" aria-label="Sažetak usluge">
+        <p class="home-hero__label">Brzi pregled usluge</p>
+        <ul class="home-hero__list">
+            <li>Provjereni šetači za svakodnevne i povremene šetnje.</li>
+            <li>Evidencija pasa koja pomaže držati rutinu preglednom.</li>
+            <li>Rezervacije koje jasno pokazuju kada je koja šetnja dogovorena.</li>
+        </ul>
+    </aside>
+</section>
+
+<section class="service-grid" aria-label="Pregled dog walking usluge">
+    <a class="service-card service-card-link accent-rose" href="@Url.Action("Walkers", "Home")">
+        <h2>Šetači</h2>
+        <p class="service-card__value">@Model.Walkers.Count</p>
+        <p class="service-card__text">Ljudi spremni za sigurne i uredno planirane šetnje.</p>
+    </a>
+
+    <a class="service-card service-card-link accent-sea" href="@Url.Action("Dogs", "Home")">
+        <h2>Psi</h2>
+        <p class="service-card__value">@Model.Dogs.Count</p>
+        <p class="service-card__text">Psi koje vodimo kroz svakodnevnu rutinu i šetnju.</p>
+    </a>
+
+    <a class="service-card service-card-link accent-honey" href="@Url.Action("Bookings", "Home")">
+        <h2>Rezervacije</h2>
+        <p class="service-card__value">@Model.Bookings.Count</p>
+        <p class="service-card__text">Planirane šetnje koje se lako prate i dogovaraju.</p>
+    </a>
+</section>
+
+<section class="process-panel" aria-labelledby="process-title">
+    <span class="eyebrow">Kako radi</span>
+    <h2 id="process-title">Tri koraka do uredne šetnje</h2>
+
+    <div class="process-steps">
+        <article class="process-step">
+            <span class="process-step__number">1</span>
+            <h3>Odaberi šetača</h3>
+            <p>Pregledaj šetače i odaberi osobu koja odgovara tempu tvog psa.</p>
+        </article>
+
+        <article class="process-step">
+            <span class="process-step__number">2</span>
+            <h3>Dodaj psa</h3>
+            <p>Drži pse i njihove osnovne podatke preglednima na jednom mjestu.</p>
+        </article>
+
+        <article class="process-step">
+            <span class="process-step__number">3</span>
+            <h3>Zakaži šetnju</h3>
+            <p>Rezervacije ostaju jasne, tako da uvijek znaš kada je sljedeći termin.</p>
+        </article>
+    </div>
+</section>

@@ -1,0 +1,50 @@
+@model IReadOnlyList<Vjezba.Model.DogOwner>
+
+@{
+    ViewData["Title"] = "Vlasnici";
+}
+
+<section class="page-header" aria-labelledby="owners-title">
+    <div>
+        <span class="eyebrow">Popis vlasnika</span>
+        <h1 id="owners-title">Vlasnici pasa</h1>
+        <p class="page-subtitle">Brzi pregled pasa i lokacija vlasnika.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Dogs", "Home")">Pogledaj pse</a>
+        <a class="btn btn-outline" href="@Url.Action("Index", "Home")">Natrag na početnu</a>
+    </div>
+</section>
+
+@if (!Model.Any())
+{
+    <section class="empty-state" aria-live="polite">
+        <h2>Još nema vlasnika</h2>
+        <p>Dodajte prvi profil vlasnika kako bi se ovdje pojavili njegovi psi i rezervacije.</p>
+        <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Vrati se na početnu</a>
+    </section>
+}
+else
+{
+    <section class="entity-grid" aria-label="Popis vlasnika">
+        @foreach (var owner in Model)
+        {
+            <article class="entity-card">
+                <div class="entity-card__title">
+                    <div>
+                        <h2>@owner.Name @owner.Surname</h2>
+                    </div>
+                </div>
+
+                <div class="entity-tags">
+                    <span class="entity-tag">Psi: @(owner.Dogs.Any() ? string.Join(", ", owner.Dogs.Select(d => d.Name)) : "Nema pasa unesenih u profil.")</span>
+                    <span class="entity-tag">Lokacija: @owner.Address</span>
+                </div>
+
+                <div class="entity-card__actions">
+                    <a class="btn btn-primary" href="@Url.Action("Owner", "Home", new { id = owner.Id })">Detalji</a>
+                </div>
+            </article>
+        }
+    </section>
+}

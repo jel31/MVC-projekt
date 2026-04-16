@@ -1,0 +1,323 @@
+/* Form & Input Styling - Clean, Bubbly, User-Friendly */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+textarea,
+select {
+    font-family: "Inter", "Segoe UI", sans-serif;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--text);
+    transition: all var(--motion-smooth) ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--accent-2);
+    background: var(--surface-alt);
+    box-shadow: 0 0 0 3px rgba(139, 211, 221, 0.1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 6rem;
+    font-family: inherit;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text);
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-error {
+    color: #e63946;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.form-success {
+    color: #06a77d;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+}
+
+.form-hint {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.4rem;
+    line-height: 1.4;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* Checkbox & Radio Styling */
+input[type="checkbox"],
+input[type="radio"] {
+    cursor: pointer;
+    accent-color: var(--accent);
+}
+
+.checkbox-group,
+.radio-group {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.checkbox-item,
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.95rem;
+}
+
+.checkbox-item input,
+.radio-item input {
+    cursor: pointer;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Button Variants */
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent), #ff6da4);
+    border-color: #e46d8a;
+    color: white;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    filter: saturate(1.1) brightness(1.05);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, var(--accent-2), #6fc7d6);
+    border-color: #67b8c2;
+    color: white;
+    font-weight: 600;
+}
+
+.btn-secondary:hover {
+    filter: saturate(1.1) brightness(1.05);
+}
+
+.btn-outline {
+    background: var(--surface-alt);
+    border-color: var(--accent-2);
+    color: var(--text);
+    font-weight: 600;
+}
+
+.btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn-small {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+    border-radius: var(--radius-sm);
+}
+
+.btn-wide {
+    width: 100%;
+}
+
+/* Loading & Disabled States */
+.btn:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--surface-muted);
+}
+
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Consistency & Spacing */
+.form-section {
+    padding: 1.25rem;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    margin-bottom: 1.25rem;
+}
+
+.form-section h3 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+/* Micro-interactions */
+button,
+a.btn,
+input[type="submit"],
+input[type="button"] {
+    position: relative;
+    overflow: hidden;
+}
+
+button:active,
+a.btn:active,
+input[type="submit"]:active,
+input[type="button"]:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+/* Toast/Alert Styling */
+.alert {
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    border: 1px solid transparent;
+}
+
+.alert-success {
+    background: #f0f9f6;
+    color: #06a77d;
+    border-color: #9dd6bb;
+}
+
+.alert-error {
+    background: #fff0f1;
+    color: #e63946;
+    border-color: #e5a6b4;
+}
+
+.alert-warning {
+    background: #fff9f0;
+    color: #d97706;
+    border-color: #fcd34d;
+}
+
+.alert-info {
+    background: #f0f8ff;
+    color: #0066cc;
+    border-color: #bfdbfe;
+}
+
+/* Focus Visible Consistency */
+*:focus-visible {
+    outline: 3px solid var(--accent-2);
+    outline-offset: 2px;
+}
+
+/* Table Styling Improvements */
+table {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+th {
+    font-weight: 600;
+    padding: 0.85rem 1rem;
+}
+
+td {
+    padding: 0.9rem 1rem;
+}
+
+tbody tr {
+    transition: background var(--motion-smooth) ease;
+}
+
+tbody tr:hover {
+    background: rgba(139, 211, 221, 0.08);
+}
+
+/* Breadcrumb Styling for Navigation Clarity */
+.breadcrumb {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.breadcrumb a {
+    color: var(--accent-2);
+    text-decoration: none;
+    transition: color var(--motion-smooth) ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--text);
+    text-decoration: underline;
+}
+
+.breadcrumb-separator {
+    color: var(--text-muted);
+}
+
+/* Responsive Form Adjustments */
+@media (max-width: 600px) {
+    label {
+        font-size: 0.9rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="date"],
+    input[type="time"],
+    textarea,
+    select {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 0.75rem 0.9rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+}

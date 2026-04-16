@@ -1,0 +1,89 @@
+@model Vjezba.Model.DogOwner
+
+@{
+    ViewData["Title"] = "Detalji vlasnika";
+}
+
+<section class="page-header" aria-labelledby="owner-title">
+    <div>
+        <span class="eyebrow">Detalji vlasnika</span>
+        <h1 id="owner-title" class="fx-text-lift">@Model.Name @Model.Surname</h1>
+        <p class="page-subtitle">Podaci o vlasniku, psima i njegovim šetnjama.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Owners", "Home")">Natrag na popis</a>
+        <a class="btn btn-outline" href="@Url.Action("Index", "Home")">Početna</a>
+    </div>
+</section>
+
+<section class="detail-layout detail-layout--entity">
+    <article class="detail-card detail-card--wide">
+        <div class="section-title">
+            <h2 class="fx-text-lift">Osnovni podaci</h2>
+        </div>
+
+        <div class="field-list">
+            <div class="field-row">
+                <span class="field-label">E-pošta</span>
+                <span class="field-value">@Model.Email</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Telefon</span>
+                <span class="field-value">@Model.PhoneNumber</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Adresa</span>
+                <span class="field-value">@Model.Address</span>
+            </div>
+        </div>
+
+    </article>
+
+    <aside class="detail-side">
+        <article class="detail-card detail-card--section">
+            <div class="section-title">
+                <h2 class="fx-text-lift">Psi</h2>
+            </div>
+
+            @if (Model.Dogs.Any())
+            {
+                <div class="field-list">
+                    @foreach (var dog in Model.Dogs)
+                    {
+                        <a class="field-row field-row--link" href="@Url.Action("Dog", "Home", new { id = dog.Id })">
+                            <span class="field-label">@dog.Name</span>
+                            <span class="field-value">@dog.Breed · @dog.Age godina</span>
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="muted-note">Nema unesenih pasa.</p>
+            }
+        </article>
+
+        <article class="detail-card detail-card--section">
+            <div class="section-title">
+                <h2 class="fx-text-lift">Rezervacije</h2>
+            </div>
+
+            @if (Model.Bookings.Any())
+            {
+                <div class="field-list">
+                    @foreach (var booking in Model.Bookings)
+                    {
+                        <a class="field-row field-row--link" href="@Url.Action("Booking", "Home", new { id = booking.Id })">
+                            <span class="field-label">Rezervacija #@booking.Id</span>
+                            <span class="field-value">@booking.StartTime.ToString("dd.MM.yyyy HH:mm") · @booking.Status</span>
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="muted-note">Nema rezervacija.</p>
+            }
+        </article>
+    </aside>
+</section>

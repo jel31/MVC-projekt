@@ -1,0 +1,83 @@
+@model Vjezba.Model.Dog
+
+@{
+    ViewData["Title"] = "Detalji psa";
+    var relatedBookings = Model.Owner.Bookings.Where(booking => booking.Dogs.Any(dog => dog.Id == Model.Id)).ToList();
+}
+
+<section class="page-header" aria-labelledby="dog-title">
+    <div>
+        <span class="eyebrow">Detalji psa</span>
+        <h1 id="dog-title" class="fx-text-lift">@Model.Name</h1>
+        <p class="page-subtitle">Sve bitno o psu, njegovom vlasniku i povezanim rezervacijama.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Dogs", "Home")">Natrag na popis</a>
+        <a class="btn btn-outline" href="@Url.Action("Owners", "Home")">Vlasnici</a>
+    </div>
+</section>
+
+<section class="detail-layout detail-layout--entity">
+    <article class="detail-card detail-card--wide">
+        <div class="section-title">
+            <h2 class="fx-text-lift">Osnovni podaci</h2>
+            <span class="badge-count">@Model.Age godina</span>
+        </div>
+
+        <div class="field-list">
+            <div class="field-row">
+                <span class="field-label">Pasmina</span>
+                <span class="field-value">@Model.Breed</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Vlasnik</span>
+                <span class="field-value">@Model.Owner.Name @Model.Owner.Surname</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">E-pošta vlasnika</span>
+                <span class="field-value">@Model.Owner.Email</span>
+            </div>
+        </div>
+
+        <div class="detail-tags">
+            <span class="detail-tag">@(Model.IsVaccinated ? "Cijepljen" : "Nije cijepljen")</span>
+            <span class="detail-tag">@(Model.IsFriendly ? "Druželjubiv" : "Treba oprez")</span>
+        </div>
+    </article>
+
+    <aside class="detail-side">
+        <article class="detail-card detail-card--section">
+            <div class="section-title">
+                <h2 class="fx-text-lift">Vlasnik</h2>
+            </div>
+            <div class="field-list">
+                <a class="field-row field-row--link" href="@Url.Action("Owner", "Home", new { id = Model.Owner.Id })">
+                    <span class="field-label">@Model.Owner.Name @Model.Owner.Surname</span>
+                    <span class="field-value fx-text-lift">@Model.Owner.Address · @Model.Owner.PhoneNumber</span>
+                </a>
+            </div>
+        </article>
+
+        <article class="detail-card detail-card--section">
+            <div class="section-title">
+                <h2 class="fx-text-lift">Rezervacije s ovim psom</h2>
+            </div>
+            @if (relatedBookings.Any())
+            {
+                <div class="field-list">
+                    @foreach (var booking in relatedBookings)
+                    {
+                        <a class="field-row field-row--link" href="@Url.Action("Booking", "Home", new { id = booking.Id })">
+                            <span class="field-label">Rezervacija #@booking.Id</span>
+                            <span class="field-value fx-text-lift">@booking.StartTime.ToString("dd.MM.yyyy HH:mm") · @booking.DogWalker.Name @booking.DogWalker.Surname</span>
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="muted-note">Nema povezanih rezervacija.</p>
+            }
+        </article>
+    </aside>
+</section>

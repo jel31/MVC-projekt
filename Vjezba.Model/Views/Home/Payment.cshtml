@@ -1,0 +1,68 @@
+@model Vjezba.Model.Payment
+
+@{
+    ViewData["Title"] = "Detalji uplate";
+}
+
+<section class="page-header" aria-labelledby="payment-title">
+    <div>
+        <span class="eyebrow">Detalji uplate</span>
+        <h1 id="payment-title" class="fx-text-lift">Uplata #@Model.Id</h1>
+        <p class="page-subtitle">Pregled iznosa, načina plaćanja i povezanog termina.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Payments", "Home")">Natrag na popis</a>
+        <a class="btn btn-outline" href="@Url.Action("Booking", "Home", new { id = Model.Booking.Id })">Rezervacija</a>
+    </div>
+</section>
+
+<section class="detail-layout detail-layout--entity">
+    <article class="detail-card detail-card--wide">
+        <div class="section-title">
+            <h2 class="fx-text-lift">Osnovni podaci</h2>
+            <span class="badge-count">@(Model.IsSuccessful ? "Uspješno" : "Neuspješno")</span>
+        </div>
+
+        <div class="field-list">
+            <div class="field-row">
+                <span class="field-label">Iznos</span>
+                <span class="field-value">€@Model.Amount.ToString("F2")</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Datum</span>
+                <span class="field-value">@Model.Date.ToString("dd.MM.yyyy HH:mm")</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Način plaćanja</span>
+                <span class="field-value">@Model.PaymentMethod</span>
+            </div>
+        </div>
+
+        <div class="detail-tags">
+            <span class="detail-tag">Rezervacija #@Model.Booking.Id</span>
+            <span class="detail-tag">@(Model.IsSuccessful ? "Transakcija je prošla" : "Transakcija nije prošla")</span>
+        </div>
+    </article>
+
+    <aside class="detail-side">
+        <article class="detail-card detail-card--section">
+            <div class="section-title">
+                <h2 class="fx-text-lift">Povezana rezervacija</h2>
+            </div>
+            <div class="field-list">
+                <div class="field-row">
+                    <span class="field-label">Vlasnik</span>
+                    <span class="field-value">@Model.Booking.Owner.Name @Model.Booking.Owner.Surname</span>
+                </div>
+                <div class="field-row">
+                    <span class="field-label">Šetač</span>
+                    <span class="field-value">@Model.Booking.DogWalker.Name @Model.Booking.DogWalker.Surname</span>
+                </div>
+                <div class="field-row">
+                    <span class="field-label">Termin</span>
+                    <span class="field-value">@Model.Booking.StartTime.ToString("dd.MM.yyyy HH:mm") - @Model.Booking.EndTime.ToString("HH:mm")</span>
+                </div>
+            </div>
+        </article>
+    </aside>
+</section>

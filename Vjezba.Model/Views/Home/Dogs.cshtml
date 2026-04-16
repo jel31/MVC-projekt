@@ -1,0 +1,53 @@
+@model IReadOnlyList<Vjezba.Model.Dog>
+
+@{
+    ViewData["Title"] = "Psi";
+}
+
+<section class="page-header" aria-labelledby="dogs-title">
+    <div>
+        <span class="eyebrow">Mali prijatelji</span>
+        <h1 id="dogs-title">Psi</h1>
+        <p class="page-subtitle">Pregled svih pasa, njihovih vlasnika i osnovnih podataka.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Owners", "Home")">Pogledaj vlasnike</a>
+        <a class="btn btn-outline" href="@Url.Action("Index", "Home")">Natrag na početnu</a>
+    </div>
+</section>
+
+@if (!Model.Any())
+{
+    <section class="empty-state" aria-live="polite">
+        <h2>Još nema pasa</h2>
+        <p>Kada dodate pse u sustav, ovdje će se pojaviti njihovi profili i vlasnici.</p>
+        <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Vrati se na početnu</a>
+    </section>
+}
+else
+{
+    <section class="entity-grid" aria-label="Popis pasa">
+        @foreach (var dog in Model)
+        {
+            <article class="entity-card">
+                <div class="entity-card__title">
+                    <div>
+                        <h2>@dog.Name</h2>
+                        <p class="entity-card__meta">@dog.Breed</p>
+                    </div>
+                    <span class="badge-count">@dog.Age godina</span>
+                </div>
+
+                <div class="entity-tags">
+                    <span class="entity-tag">Vlasnik: @dog.Owner.Name @dog.Owner.Surname</span>
+                    <span class="entity-tag">@(dog.IsVaccinated ? "Cijepljen" : "Nije cijepljen")</span>
+                    <span class="entity-tag">@(dog.IsFriendly ? "Druželjubiv" : "Treba oprez")</span>
+                </div>
+
+                <div class="entity-card__actions">
+                    <a class="btn btn-primary" href="@Url.Action("Dog", "Home", new { id = dog.Id })">Detalji</a>
+                </div>
+            </article>
+        }
+    </section>
+}

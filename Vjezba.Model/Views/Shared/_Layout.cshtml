@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Šapice u pokretu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/forms.css" asp-append-version="true" />
+</head>
+<body>
+    @{
+        var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "Index";
+        var isIndex = string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase);
+        var isOwners = string.Equals(currentAction, "Owners", StringComparison.OrdinalIgnoreCase);
+        var isWalkers = string.Equals(currentAction, "Walkers", StringComparison.OrdinalIgnoreCase);
+        var isBookings = string.Equals(currentAction, "Bookings", StringComparison.OrdinalIgnoreCase);
+        var isDogs = string.Equals(currentAction, "Dogs", StringComparison.OrdinalIgnoreCase);
+        var isPayments = string.Equals(currentAction, "Payments", StringComparison.OrdinalIgnoreCase);
+        var isReviews = string.Equals(currentAction, "Reviews", StringComparison.OrdinalIgnoreCase);
+    }
+
+    <header class="app-header">
+        <div class="app-header__inner">
+            <a class="brand" href="@Url.Action("Index", "Home")">
+                <span class="brand__text">Šapice u pokretu</span>
+            </a>
+
+            <nav class="app-nav" aria-label="Glavna navigacija">
+                <a class="nav-pill @(isIndex ? "is-active" : string.Empty)" aria-current="@(isIndex ? "page" : null)" href="@Url.Action("Index", "Home")">Početna</a>
+                <a class="nav-pill @(isOwners ? "is-active" : string.Empty)" aria-current="@(isOwners ? "page" : null)" href="@Url.Action("Owners", "Home")">Vlasnici</a>
+                <a class="nav-pill @(isWalkers ? "is-active" : string.Empty)" aria-current="@(isWalkers ? "page" : null)" href="@Url.Action("Walkers", "Home")">Šetači</a>
+                <a class="nav-pill @(isBookings ? "is-active" : string.Empty)" aria-current="@(isBookings ? "page" : null)" href="@Url.Action("Bookings", "Home")">Rezervacije</a>
+                <a class="nav-pill @(isDogs ? "is-active" : string.Empty)" aria-current="@(isDogs ? "page" : null)" href="@Url.Action("Dogs", "Home")">Psi</a>
+                <a class="nav-pill @(isPayments ? "is-active" : string.Empty)" aria-current="@(isPayments ? "page" : null)" href="@Url.Action("Payments", "Home")">Uplate</a>
+                <a class="nav-pill @(isReviews ? "is-active" : string.Empty)" aria-current="@(isReviews ? "page" : null)" href="@Url.Action("Reviews", "Home")">Recenzije</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="app-main">
+        @RenderBody()
+    </main>
+
+    <footer class="app-footer">
+        <p>Šapice u pokretu</p>
+    </footer>
+</body>
+</html>

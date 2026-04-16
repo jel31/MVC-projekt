@@ -1,0 +1,57 @@
+@model IReadOnlyList<Vjezba.Model.Payment>
+
+@{
+    ViewData["Title"] = "Uplate";
+
+    string StatusLabel(Payment payment) => payment.IsSuccessful ? "Uspješno" : "Neuspješno";
+
+    string StatusClass(Payment payment) => payment.IsSuccessful ? "badge-soft status-confirmed" : "badge-soft status-cancelled";
+}
+
+<section class="page-header" aria-labelledby="payments-title">
+    <div>
+        <span class="eyebrow">Financije</span>
+        <h1 id="payments-title">Uplate</h1>
+        <p class="page-subtitle">Pregled iznosa, načina plaćanja i ishoda svake uplate.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Bookings", "Home")">Pogledaj rezervacije</a>
+        <a class="btn btn-outline" href="@Url.Action("Index", "Home")">Natrag na početnu</a>
+    </div>
+</section>
+
+@if (!Model.Any())
+{
+    <section class="empty-state" aria-live="polite">
+        <h2>Još nema uplata</h2>
+        <p>Kada se rezervacije počnu zaključivati, ovdje će se pojaviti uplate.</p>
+        <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Vrati se na početnu</a>
+    </section>
+}
+else
+{
+    <section class="entity-grid" aria-label="Popis uplata">
+        @foreach (var payment in Model)
+        {
+            <article class="entity-card">
+                <div class="entity-card__title">
+                    <div>
+                        <h2>Uplata #@payment.Id</h2>
+                        <p class="entity-card__meta">@payment.Date.ToString("dd.MM.yyyy HH:mm")</p>
+                    </div>
+                    <span class="@StatusClass(payment)">@StatusLabel(payment)</span>
+                </div>
+
+                <div class="entity-tags">
+                    <span class="entity-tag">€@payment.Amount.ToString("F2")</span>
+                    <span class="entity-tag">@payment.PaymentMethod</span>
+                    <span class="entity-tag">Rezervacija #@payment.Booking.Id</span>
+                </div>
+
+                <div class="entity-card__actions">
+                    <a class="btn btn-primary btn-detail" href="@Url.Action("Payment", "Home", new { id = payment.Id })">Detalji</a>
+                </div>
+            </article>
+        }
+    </section>
+}
