@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Detalji uplate";
+
+    string StatusClass(Payment payment) => payment.IsSuccessful ? "badge-soft status-confirmed" : "badge-soft status-cancelled";
 }
 
 <section class="page-header" aria-labelledby="payment-title">
@@ -20,7 +22,7 @@
     <article class="detail-card detail-card--wide">
         <div class="section-title">
             <h2 class="fx-text-lift">Osnovni podaci</h2>
-            <span class="badge-count">@(Model.IsSuccessful ? "Uspješno" : "Neuspješno")</span>
+            <span class="@StatusClass(Model)">@(Model.IsSuccessful ? "Uspješno" : "Neuspješno")</span>
         </div>
 
         <div class="field-list">
@@ -40,7 +42,7 @@
 
         <div class="detail-tags">
             <span class="detail-tag">Rezervacija #@Model.Booking.Id</span>
-            <span class="detail-tag">@(Model.IsSuccessful ? "Transakcija je prošla" : "Transakcija nije prošla")</span>
+            <span class="@StatusClass(Model)">@(Model.IsSuccessful ? "Transakcija je prošla" : "Transakcija nije prošla")</span>
         </div>
     </article>
 

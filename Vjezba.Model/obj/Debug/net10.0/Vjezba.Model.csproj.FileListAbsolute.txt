@@ -29,4 +29,4 @@
 /Users/jelenaknezovic/ASP/Vjezba.Model/obj/Debug/net10.0/swae.build.ex.cache
 /Users/jelenaknezovic/ASP/Vjezba.Model/bin/Debug/net10.0/Vjezba.Model.staticwebassets.runtime.json
 /Users/jelenaknezovic/ASP/Vjezba.Model/obj/Debug/net10.0/compressed/7nr8g9fohl-{0}-9zmauxztlt-9zmauxztlt.gz
-/Users/jelenaknezovic/ASP/Vjezba.Model/obj/Debug/net10.0/compressed/2dk6fnwmmc-{0}-tsiw3w0c89-tsiw3w0c89.gz
+/Users/jelenaknezovic/ASP/Vjezba.Model/obj/Debug/net10.0/compressed/2dk6fnwmmc-{0}-8h1d9hjs9h-8h1d9hjs9h.gz
