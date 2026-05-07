@@ -1,0 +1,13 @@
+@model DogFilterViewModel
+
+<form method="get" class="filter-bar">
+    <div class="filter-field">
+        <label asp-for="Breed"></label>
+        <input asp-for="Breed" class="form-control" placeholder="Pretraži po pasmini..." />
+    </div>
+
+    <div class="filter-actions">
+        <button type="submit" class="btn btn-secondary">Filtriraj</button>
+        <a href="@Url.Action("Index", "Dogs")" class="btn btn-outline">Resetiraj</a>
+    </div>
+</form>

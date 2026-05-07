@@ -14,9 +14,9 @@
         <p class="lead">Sve je fokusirano na šetnje pasa: šetači, psi i rezervacije na jednom čistom mjestu.</p>
 
         <div class="hero-actions">
-            <a class="btn btn-primary" href="@Url.Action("Walkers", "Home")">Pogledaj šetače</a>
-            <a class="btn btn-secondary" href="@Url.Action("Bookings", "Home")">Otvori rezervacije</a>
-            <a class="btn btn-outline" href="@Url.Action("Dogs", "Home")">Pogledaj pse</a>
+            <a class="btn btn-primary" href="@Url.Action("Index", "Walkers")">Pogledaj šetače</a>
+            <a class="btn btn-secondary" href="@Url.Action("Index", "Bookings")">Otvori rezervacije</a>
+            <a class="btn btn-outline" href="@Url.Action("Index", "Dogs")">Pogledaj pse</a>
         </div>
     </div>
 
@@ -31,19 +31,19 @@
 </section>
 
 <section class="service-grid" aria-label="Pregled dog walking usluge">
-    <a class="service-card service-card-link accent-rose" href="@Url.Action("Walkers", "Home")">
+    <a class="service-card service-card-link accent-rose" href="@Url.Action("Index", "Walkers")">
         <h2>Šetači</h2>
         <p class="service-card__value">@Model.Walkers.Count</p>
         <p class="service-card__text">Ljudi spremni za sigurne i uredno planirane šetnje.</p>
     </a>
 
-    <a class="service-card service-card-link accent-sea" href="@Url.Action("Dogs", "Home")">
+    <a class="service-card service-card-link accent-sea" href="@Url.Action("Index", "Dogs")">
         <h2>Psi</h2>
         <p class="service-card__value">@Model.Dogs.Count</p>
         <p class="service-card__text">Psi koje vodimo kroz svakodnevnu rutinu i šetnju.</p>
     </a>
 
-    <a class="service-card service-card-link accent-honey" href="@Url.Action("Bookings", "Home")">
+    <a class="service-card service-card-link accent-honey" href="@Url.Action("Index", "Bookings")">
         <h2>Rezervacije</h2>
         <p class="service-card__value">@Model.Bookings.Count</p>
         <p class="service-card__text">Planirane šetnje koje se lako prate i dogovaraju.</p>

@@ -12,14 +12,14 @@
 </head>
 <body>
     @{
-        var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "Index";
-        var isIndex = string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase);
-        var isOwners = string.Equals(currentAction, "Owners", StringComparison.OrdinalIgnoreCase);
-        var isWalkers = string.Equals(currentAction, "Walkers", StringComparison.OrdinalIgnoreCase);
-        var isBookings = string.Equals(currentAction, "Bookings", StringComparison.OrdinalIgnoreCase);
-        var isDogs = string.Equals(currentAction, "Dogs", StringComparison.OrdinalIgnoreCase);
-        var isPayments = string.Equals(currentAction, "Payments", StringComparison.OrdinalIgnoreCase);
-        var isReviews = string.Equals(currentAction, "Reviews", StringComparison.OrdinalIgnoreCase);
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "Home";
+        var isIndex = string.Equals(currentController, "Home", StringComparison.OrdinalIgnoreCase);
+        var isOwners = string.Equals(currentController, "Owners", StringComparison.OrdinalIgnoreCase);
+        var isWalkers = string.Equals(currentController, "Walkers", StringComparison.OrdinalIgnoreCase);
+        var isBookings = string.Equals(currentController, "Bookings", StringComparison.OrdinalIgnoreCase);
+        var isDogs = string.Equals(currentController, "Dogs", StringComparison.OrdinalIgnoreCase);
+        var isPayments = string.Equals(currentController, "Payments", StringComparison.OrdinalIgnoreCase);
+        var isReviews = string.Equals(currentController, "Reviews", StringComparison.OrdinalIgnoreCase);
     }
 
     <header class="app-header">
@@ -30,12 +30,12 @@
 
             <nav class="app-nav" aria-label="Glavna navigacija">
                 <a class="nav-pill @(isIndex ? "is-active" : string.Empty)" aria-current="@(isIndex ? "page" : null)" href="@Url.Action("Index", "Home")">Početna</a>
-                <a class="nav-pill @(isOwners ? "is-active" : string.Empty)" aria-current="@(isOwners ? "page" : null)" href="@Url.Action("Owners", "Home")">Vlasnici</a>
-                <a class="nav-pill @(isWalkers ? "is-active" : string.Empty)" aria-current="@(isWalkers ? "page" : null)" href="@Url.Action("Walkers", "Home")">Šetači</a>
-                <a class="nav-pill @(isBookings ? "is-active" : string.Empty)" aria-current="@(isBookings ? "page" : null)" href="@Url.Action("Bookings", "Home")">Rezervacije</a>
-                <a class="nav-pill @(isDogs ? "is-active" : string.Empty)" aria-current="@(isDogs ? "page" : null)" href="@Url.Action("Dogs", "Home")">Psi</a>
-                <a class="nav-pill @(isPayments ? "is-active" : string.Empty)" aria-current="@(isPayments ? "page" : null)" href="@Url.Action("Payments", "Home")">Uplate</a>
-                <a class="nav-pill @(isReviews ? "is-active" : string.Empty)" aria-current="@(isReviews ? "page" : null)" href="@Url.Action("Reviews", "Home")">Recenzije</a>
+                <a class="nav-pill @(isOwners ? "is-active" : string.Empty)" aria-current="@(isOwners ? "page" : null)" href="@Url.Action("Index", "Owners")">Vlasnici</a>
+                <a class="nav-pill @(isWalkers ? "is-active" : string.Empty)" aria-current="@(isWalkers ? "page" : null)" href="@Url.Action("Index", "Walkers")">Šetači</a>
+                <a class="nav-pill @(isBookings ? "is-active" : string.Empty)" aria-current="@(isBookings ? "page" : null)" href="@Url.Action("Index", "Bookings")">Rezervacije</a>
+                <a class="nav-pill @(isDogs ? "is-active" : string.Empty)" aria-current="@(isDogs ? "page" : null)" href="@Url.Action("Index", "Dogs")">Psi</a>
+                <a class="nav-pill @(isPayments ? "is-active" : string.Empty)" aria-current="@(isPayments ? "page" : null)" href="@Url.Action("Index", "Payments")">Uplate</a>
+                <a class="nav-pill @(isReviews ? "is-active" : string.Empty)" aria-current="@(isReviews ? "page" : null)" href="@Url.Action("Index", "Reviews")">Recenzije</a>
             </nav>
         </div>
     </header>

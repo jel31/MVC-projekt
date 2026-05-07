@@ -1,4 +1,5 @@
 using System.Linq;
+using Vjezba.Model.Data;
 
 namespace Vjezba.Model;
 
@@ -15,7 +16,6 @@ public static class SampleData
     {
         var owner1 = new DogOwner
         {
-            Id = 1,
             Name = "Ana",
             Surname = "Horvat",
             Email = "ana.horvat@example.com",
@@ -25,7 +25,6 @@ public static class SampleData
 
         var owner2 = new DogOwner
         {
-            Id = 2,
             Name = "Petra",
             Surname = "Kovac",
             Email = "petra.kovac@example.com",
@@ -35,7 +34,6 @@ public static class SampleData
 
         var owner3 = new DogOwner
         {
-            Id = 3,
             Name = "Ivan",
             Surname = "Babic",
             Email = "ivan.babic@example.com",
@@ -45,7 +43,6 @@ public static class SampleData
 
         var walker1 = new DogWalker
         {
-            Id = 4,
             Name = "Marko",
             Surname = "Ivic",
             Email = "marko.ivic@example.com",
@@ -56,7 +53,6 @@ public static class SampleData
 
         var walker2 = new DogWalker
         {
-            Id = 5,
             Name = "Luka",
             Surname = "Maric",
             Email = "luka.maric@example.com",
@@ -67,7 +63,6 @@ public static class SampleData
 
         var dog1 = new Dog
         {
-            Id = 1,
             Name = "Rex",
             Breed = "German Shepherd",
             Age = 3,
@@ -78,7 +73,6 @@ public static class SampleData
 
         var dog2 = new Dog
         {
-            Id = 2,
             Name = "Bella",
             Breed = "Labrador",
             Age = 2,
@@ -89,7 +83,6 @@ public static class SampleData
 
         var dog3 = new Dog
         {
-            Id = 3,
             Name = "Max",
             Breed = "Beagle",
             Age = 5,
@@ -100,7 +93,6 @@ public static class SampleData
 
         var dog4 = new Dog
         {
-            Id = 4,
             Name = "Luna",
             Breed = "Golden Retriever",
             Age = 1,
@@ -111,7 +103,6 @@ public static class SampleData
 
         var dog5 = new Dog
         {
-            Id = 5,
             Name = "Bruno",
             Breed = "Labrador",
             Age = 4,
@@ -122,7 +113,6 @@ public static class SampleData
 
         var dog6 = new Dog
         {
-            Id = 6,
             Name = "Coco",
             Breed = "Poodle",
             Age = 3,
@@ -131,13 +121,15 @@ public static class SampleData
             Owner = owner3
         };
 
-        owner1.Dogs.AddRange(new[] { dog1, dog2 });
+        owner1.Dogs.Add(dog1);
+        owner1.Dogs.Add(dog2);
         owner2.Dogs.Add(dog3);
-        owner3.Dogs.AddRange(new[] { dog4, dog5, dog6 });
+        owner3.Dogs.Add(dog4);
+        owner3.Dogs.Add(dog5);
+        owner3.Dogs.Add(dog6);
 
         var booking1 = new Booking
         {
-            Id = 1,
             StartTime = new DateTime(2026, 3, 3, 9, 0, 0),
             EndTime = new DateTime(2026, 3, 3, 10, 0, 0),
             Owner = owner1,
@@ -148,7 +140,6 @@ public static class SampleData
 
         var booking2 = new Booking
         {
-            Id = 2,
             StartTime = new DateTime(2026, 3, 3, 11, 0, 0),
             EndTime = new DateTime(2026, 3, 3, 12, 0, 0),
             Owner = owner2,
@@ -159,7 +150,6 @@ public static class SampleData
 
         var booking3 = new Booking
         {
-            Id = 3,
             StartTime = new DateTime(2026, 3, 3, 8, 0, 0),
             EndTime = new DateTime(2026, 3, 3, 9, 30, 0),
             Owner = owner1,
@@ -170,7 +160,6 @@ public static class SampleData
 
         var booking4 = new Booking
         {
-            Id = 4,
             StartTime = new DateTime(2026, 3, 3, 10, 0, 0),
             EndTime = new DateTime(2026, 3, 3, 11, 30, 0),
             Owner = owner3,
@@ -179,15 +168,17 @@ public static class SampleData
             Dogs = new List<Dog> { dog4, dog5, dog6 }
         };
 
-        owner1.Bookings.AddRange(new[] { booking1, booking3 });
+        owner1.Bookings.Add(booking1);
+        owner1.Bookings.Add(booking3);
         owner2.Bookings.Add(booking2);
         owner3.Bookings.Add(booking4);
-        walker1.Bookings.AddRange(new[] { booking1, booking2 });
-        walker2.Bookings.AddRange(new[] { booking3, booking4 });
+        walker1.Bookings.Add(booking1);
+        walker1.Bookings.Add(booking2);
+        walker2.Bookings.Add(booking3);
+        walker2.Bookings.Add(booking4);
 
         var payment1 = new Payment
         {
-            Id = 1,
             Booking = booking1,
             Amount = (decimal)(booking1.EndTime - booking1.StartTime).TotalHours * walker1.HourlyRate,
             Date = booking1.EndTime.AddMinutes(30),
@@ -197,7 +188,6 @@ public static class SampleData
 
         var payment2 = new Payment
         {
-            Id = 2,
             Booking = booking2,
             Amount = (decimal)(booking2.EndTime - booking2.StartTime).TotalHours * walker1.HourlyRate,
             Date = booking2.EndTime.AddMinutes(30),
@@ -207,7 +197,6 @@ public static class SampleData
 
         var payment3 = new Payment
         {
-            Id = 3,
             Booking = booking3,
             Amount = (decimal)(booking3.EndTime - booking3.StartTime).TotalHours * walker2.HourlyRate,
             Date = booking3.EndTime.AddMinutes(30),
@@ -217,7 +206,6 @@ public static class SampleData
 
         var payment4 = new Payment
         {
-            Id = 4,
             Booking = booking4,
             Amount = (decimal)(booking4.EndTime - booking4.StartTime).TotalHours * walker2.HourlyRate,
             Date = booking4.EndTime.AddMinutes(30),
@@ -227,7 +215,6 @@ public static class SampleData
 
         var review1 = new Review
         {
-            Id = 1,
             Owner = owner1,
             DogWalker = walker1,
             Rating = 4.8m,
@@ -237,7 +224,6 @@ public static class SampleData
 
         var review2 = new Review
         {
-            Id = 2,
             Owner = owner1,
             DogWalker = walker2,
             Rating = 4.6m,
@@ -257,5 +243,19 @@ public static class SampleData
         Bookings.AddRange(new[] { booking1, booking2, booking3, booking4 });
         Payments.AddRange(new[] { payment1, payment2, payment3, payment4 });
         Reviews.AddRange(new[] { review1, review2 });
+    }
+
+    public static void Initialize(ApplicationDbContext context)
+    {
+        if (context.Owners.Any())
+            return;  // Database already seeded
+
+        context.Owners.AddRange(Owners);
+        context.Walkers.AddRange(Walkers);
+        context.Dogs.AddRange(Dogs);
+        context.Bookings.AddRange(Bookings);
+        context.Payments.AddRange(Payments);
+        context.Reviews.AddRange(Reviews);
+        context.SaveChanges();
     }
 }

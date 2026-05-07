@@ -1,0 +1,56 @@
+@model DogIndexPageViewModel
+
+@{
+    ViewData["Title"] = "Psi";
+}
+
+<section class="page-header" aria-labelledby="dogs-title">
+    <div>
+        <span class="eyebrow">Popis pasa</span>
+        <h1 id="dogs-title">Psi</h1>
+        <p class="page-subtitle">Pregled svih pasa, njihovih vlasnika i osnovnih podataka.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Index", "Owners")">Pogledaj vlasnike</a>
+        <a class="btn btn-outline" href="@Url.Action("Index", "Home")">Natrag na početnu</a>
+    </div>
+</section>
+
+<section class="filter-section" aria-label="Filtri za pse">
+    @await Html.PartialAsync("_DogFilter", Model.Filter)
+</section>
+
+@if (!Model.Items.Any())
+{
+    <section class="empty-state" aria-live="polite">
+        <h2>Nema pasa koji odgovaraju kriterijima</h2>
+        <p>Pokušaj promijeniti filter ili <a href="@Url.Action("Index", "Dogs")">resetiraj filtere</a>.</p>
+        <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Vrati se na početnu</a>
+    </section>
+}
+else
+{
+    <section class="entity-grid" aria-label="Popis pasa">
+        @foreach (var dog in Model.Items)
+        {
+            <article class="entity-card">
+                <div class="entity-card__title">
+                    <div>
+                        <h2>@dog.Name</h2>
+                        <p class="entity-card__meta">@dog.Owner.Name @dog.Owner.Surname</p>
+                    </div>
+                    <span class="badge-soft">@dog.Age godina</span>
+                </div>
+
+                <div class="entity-tags">
+                    <span class="entity-tag">@dog.Breed</span>
+                    <span class="entity-tag">@(dog.IsVaccinated ? "Cijepljen" : "Nije cijepljen")</span>
+                </div>
+
+                <div class="entity-card__actions">
+                    <a class="btn btn-primary" href="@Url.Action("Details", "Dogs", new { id = dog.Id })">Detalji</a>
+                </div>
+            </article>
+        }
+    </section>
+}
