@@ -2,6 +2,8 @@ using Vjezba.Model.Data;
 using Vjezba.Model;
 using Vjezba.Model.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +28,8 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     dbContext.Database.Migrate();
-    SampleData.Initialize(dbContext);
+    // Seed minimal data by default for easier manual testing (no bookings/payments/reviews).
+    SampleData.Initialize(dbContext, includeRelations: false);
 }
 
 if (!app.Environment.IsDevelopment())
@@ -37,6 +40,20 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+var supportedCultures = new[]
+{
+    new CultureInfo("hr"),
+    new CultureInfo("en-US")
+};
+
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("hr"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+});
+
 app.UseRouting();
 
 app.MapControllers();

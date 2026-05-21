@@ -11,6 +11,8 @@
         <p class="page-subtitle">Podaci, cijena po satu, rezervacije i recenzije.</p>
     </div>
     <div class="page-actions">
+        <a class="btn btn-primary" href="@Url.Action("Edit", "Walkers", new { id = Model.Id })">Uredi</a>
+        <a class="btn btn-outline" href="@Url.Action("Delete", "Walkers", new { id = Model.Id })">Obriši</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Walkers")">Natrag na popis</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Home")">Početna</a>
     </div>

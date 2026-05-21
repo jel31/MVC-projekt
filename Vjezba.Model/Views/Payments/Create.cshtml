@@ -1,0 +1,14 @@
+@model Vjezba.Model.Payment
+
+@{
+    ViewData["Title"] = "Dodaj uplatu";
+}
+
+<form method="post" asp-action="Create">
+    @await Html.PartialAsync("_PaymentForm", Model)
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Spremi</button>
+        <a class="btn btn-outline" href="@Url.Action("Index", "Payments")">Otkaži</a>
+    </div>
+</form>

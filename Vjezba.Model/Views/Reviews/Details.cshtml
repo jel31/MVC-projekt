@@ -11,6 +11,8 @@
         <p class="page-subtitle">Kratak pogled na dojam nakon šetnje.</p>
     </div>
     <div class="page-actions">
+        <a class="btn btn-primary" href="@Url.Action("Edit", "Reviews", new { id = Model.Id })">Uredi</a>
+        <a class="btn btn-outline" href="@Url.Action("Delete", "Reviews", new { id = Model.Id })">Obriši</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Reviews")">Natrag na popis</a>
         <a class="btn btn-outline" href="@Url.Action("Details", "Walkers", new { id = Model.DogWalker.Id })">Šetač</a>
     </div>

@@ -1,0 +1,26 @@
+@model Vjezba.Model.Booking
+
+@{
+    ViewData["Title"] = "Obriši rezervaciju";
+}
+
+<section class="page-header" aria-labelledby="delete-booking">
+    <div>
+        <span class="eyebrow">Ukloni rezervaciju</span>
+        <h1 id="delete-booking">Obriši rezervaciju #@Model.Id</h1>
+    </div>
+</section>
+
+<article class="detail-card">
+    <div class="section-title">
+        <h2>@Model.Owner.Name @Model.Owner.Surname — @Model.DogWalker.Name @Model.DogWalker.Surname</h2>
+        <span class="badge-count">@Model.StartTime.ToString("dd.MM.yyyy HH:mm") — @Model.EndTime.ToString("dd.MM.yyyy HH:mm")</span>
+    </div>
+
+    <form method="post" asp-action="Delete" asp-route-id="@Model.Id">
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Obriši rezervaciju</button>
+            <a class="btn btn-outline" href="@Url.Action("Index", "Bookings")">Otkaži</a>
+        </div>
+    </form>
+</article>

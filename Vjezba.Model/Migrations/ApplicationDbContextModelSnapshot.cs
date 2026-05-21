@@ -34,7 +34,7 @@ namespace Vjezba.Model.Migrations
 
                     b.HasIndex("DogsId");
 
-                    b.ToTable("BookingDog");
+                    b.ToTable("BookingDog", (string)null);
                 });
 
             modelBuilder.Entity("Vjezba.Model.Booking", b =>
@@ -82,7 +82,8 @@ namespace Vjezba.Model.Migrations
 
                     b.Property<string>("Breed")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
 
                     b.Property<bool>("IsFriendly")
                         .HasColumnType("bit");
@@ -92,7 +93,8 @@ namespace Vjezba.Model.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<int>("OwnerId")
                         .HasColumnType("int");
@@ -127,7 +129,8 @@ namespace Vjezba.Model.Migrations
 
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.HasKey("Id");
 
@@ -146,7 +149,8 @@ namespace Vjezba.Model.Migrations
 
                     b.Property<string>("Comment")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -180,7 +184,8 @@ namespace Vjezba.Model.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
@@ -189,19 +194,23 @@ namespace Vjezba.Model.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Surname")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -278,7 +287,7 @@ namespace Vjezba.Model.Migrations
             modelBuilder.Entity("Vjezba.Model.Payment", b =>
                 {
                     b.HasOne("Vjezba.Model.Booking", "Booking")
-                        .WithMany()
+                        .WithMany("Payments")
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -303,6 +312,11 @@ namespace Vjezba.Model.Migrations
                     b.Navigation("DogWalker");
 
                     b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("Vjezba.Model.Booking", b =>
+                {
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("Vjezba.Model.DogOwner", b =>

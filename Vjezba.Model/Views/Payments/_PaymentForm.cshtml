@@ -1,0 +1,38 @@
+@model Vjezba.Model.Payment
+
+<div asp-validation-summary="ModelOnly" class="validation-message"></div>
+
+<div class="form-grid">
+    <div class="form-field">
+        <label>Rezervacija</label>
+        @{ ViewBag.Endpoint = "/api/autocomplete/bookings"; ViewBag.InputName = "BookingId"; ViewBag.Value = Model?.BookingId.ToString(); ViewBag.IsRequired = true; ViewBag.RequiredMessage = "Rezervacija je obavezna."; ViewBag.RangeMessage = "Odaberite rezervaciju."; }
+        @await Html.PartialAsync("~/Views/Shared/_Autocomplete.cshtml")
+        <span class="validation-message field-validation-valid" data-valmsg-for="BookingId" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-field">
+        <label>Iznos</label>
+        <input asp-for="Amount" class="form-control" />
+        <span asp-validation-for="Amount" class="validation-message"></span>
+    </div>
+
+    <div class="form-field">
+        <label>Datum</label>
+        @{ ViewBag.Name = "Date"; ViewBag.Value = (Model != null && Model.Date.Year > 1901) ? Model.Date.ToString("d.M.yyyy H:mm") : string.Empty; }
+        @await Html.PartialAsync("~/Views/Shared/_DateTimePicker.cshtml")
+        <span asp-validation-for="Date" class="validation-message"></span>
+    </div>
+
+    <div class="form-field">
+        <label>Metoda plaćanja</label>
+        <input asp-for="PaymentMethod" class="form-control" />
+        <span asp-validation-for="PaymentMethod" class="validation-message"></span>
+    </div>
+
+    <div class="form-field">
+        <label>Uspješno</label>
+        <input asp-for="IsSuccessful" type="checkbox" />
+    </div>
+</div>
+
+@await Html.PartialAsync("_ValidationScriptsPartial")

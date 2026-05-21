@@ -4,6 +4,20 @@
     ViewData["Title"] = "Šetači";
 }
 
+@section Scripts {
+    <script src="~/js/ajax-search.js" asp-append-version="true"></script>
+    <script>
+        (function () {
+            var input = document.getElementById('walkers-global-search');
+            var results = document.getElementById('walkers-search-results');
+            if (!input || !results || !window.ajaxSearch) return;
+
+            var endpoint = '/api/search/walkers';
+            window.ajaxSearch.attach({ input: input, endpoint: endpoint, container: results, pageSize: 12, debounceMs: 300, init: false, mainListSelector: '#walkers-main-list' });
+        })();
+    </script>
+}
+
 <section class="page-header" aria-labelledby="walkers-title">
     <div>
         <span class="eyebrow">Popis šetača</span>
@@ -11,17 +25,26 @@
         <p class="page-subtitle">Usporedite cijenu, ocjenu i lokaciju na jednom mjestu.</p>
     </div>
     <div class="page-actions">
+        <a class="btn btn-primary" href="@Url.Action("Create", "Walkers")">Dodaj šetača</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Bookings")">Pogledaj rezervacije</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Home")">Natrag na početnu</a>
     </div>
 </section>
+<section class="search-section" aria-label="Traži šetače">
+    <div id="walkers-search-container" class="search-container">
+        <label for="walkers-global-search" class="sr-only">Pretraži šetače</label>
+        <input id="walkers-global-search" class="form-control" placeholder="Pretraži po imenu, adresi ili cijeni..." />
+    </div>
+    <div id="walkers-search-results" class="search-results" aria-live="polite"></div>
+</section>
 
+<div id="walkers-main-list">
 @if (!Model.Any())
 {
     <section class="empty-state" aria-live="polite">
         <h2>Još nema šetača</h2>
         <p>Kada dodate prve šetače, ovdje će se pojaviti njihov pregled i ocjene.</p>
-        <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Vrati se na početnu</a>
+        <a class="btn btn-primary" href="@Url.Action("Create", "Walkers")">Dodaj šetača</a>
     </section>
 }
 else
@@ -45,8 +68,11 @@ else
 
                 <div class="entity-card__actions">
                     <a class="btn btn-primary" href="@Url.Action("Details", "Walkers", new { id = walker.Id })">Detalji</a>
+                    <a class="btn btn-outline" href="@Url.Action("Edit", "Walkers", new { id = walker.Id })">Uredi</a>
+                    <a class="btn btn-outline" href="@Url.Action("Delete", "Walkers", new { id = walker.Id })">Obriši</a>
                 </div>
             </article>
         }
     </section>
 }
+</div>

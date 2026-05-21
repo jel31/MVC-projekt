@@ -4,6 +4,20 @@
     ViewData["Title"] = "Recenzije";
 }
 
+@section Scripts {
+    <script src="~/js/ajax-search.js" asp-append-version="true"></script>
+    <script>
+        (function () {
+            var input = document.getElementById('reviews-global-search');
+            var results = document.getElementById('reviews-search-results');
+            if (!input || !results || !window.ajaxSearch) return;
+
+            var endpoint = '/api/search/reviews';
+            window.ajaxSearch.attach({ input: input, endpoint: endpoint, container: results, pageSize: 12, debounceMs: 300, init: false, mainListSelector: '#reviews-main-list' });
+        })();
+    </script>
+}
+
 <section class="page-header" aria-labelledby="reviews-title">
     <div>
         <span class="eyebrow">Iskustva korisnika</span>
@@ -11,11 +25,21 @@
         <p class="page-subtitle">Što vlasnici kažu nakon šetnje i kako su ocijenili iskustvo.</p>
     </div>
     <div class="page-actions">
+        <a class="btn btn-primary" href="@Url.Action("Create", "Reviews")">Dodaj recenziju</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Walkers")">Pogledaj šetače</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Home")">Natrag na početnu</a>
     </div>
 </section>
 
+<section class="search-section" aria-label="Traži recenzije">
+    <div id="reviews-search-container" class="search-container">
+        <label for="reviews-global-search" class="sr-only">Pretraži recenzije</label>
+        <input id="reviews-global-search" class="form-control" placeholder="Pretraži po vlasniku, šetaču ili komentaru..." />
+    </div>
+    <div id="reviews-search-results" class="search-results" aria-live="polite"></div>
+</section>
+
+<div id="reviews-main-list">
 @if (!Model.Any())
 {
     <section class="empty-state" aria-live="polite">
@@ -24,6 +48,8 @@
         <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Vrati se na početnu</a>
     </section>
 }
+
+
 else
 {
     <section class="entity-grid" aria-label="Popis recenzija">
@@ -46,8 +72,11 @@ else
 
                 <div class="entity-card__actions">
                     <a class="btn btn-primary" href="@Url.Action("Details", "Reviews", new { id = review.Id })">Detalji</a>
+                    <a class="btn btn-outline" href="@Url.Action("Edit", "Reviews", new { id = review.Id })">Uredi</a>
+                    <a class="btn btn-outline" href="@Url.Action("Delete", "Reviews", new { id = review.Id })">Obriši</a>
                 </div>
             </article>
         }
     </section>
 }
+</div>

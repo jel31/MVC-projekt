@@ -1,0 +1,25 @@
+@model Vjezba.Model.Review
+
+<article class="detail-card">
+    <div class="section-title">
+        <h2>Recenzija #@Model.Id</h2>
+        <span class="badge-count">⭐ @Model.Rating.ToString("F1")</span>
+    </div>
+    <div class="field-list">
+        <div class="field-row">
+            <span class="field-label">Vlasnik</span>
+            <span class="field-value">@Model.Owner.Name @Model.Owner.Surname</span>
+        </div>
+        <div class="field-row">
+            <span class="field-label">Šetač</span>
+            <span class="field-value">@Model.DogWalker.Name @Model.DogWalker.Surname</span>
+        </div>
+    </div>
+
+    <form method="post" asp-action="Delete" asp-route-id="@Model.Id">
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Obriši recenziju</button>
+            <a class="btn btn-outline" href="@Url.Action("Index", "Reviews")">Otkaži</a>
+        </div>
+    </form>
+</article>

@@ -1,0 +1,71 @@
+@model Vjezba.Model.DogOwner
+
+@{
+    ViewData["Title"] = "Brisanje vlasnika";
+    var hasRelations = Model.Dogs.Any() || Model.Bookings.Any();
+}
+
+<section class="page-header" aria-labelledby="owner-delete-title">
+    <div>
+        <span class="eyebrow">CRUD vlasnici</span>
+        <h1 id="owner-delete-title">Obriši vlasnika</h1>
+        <p class="page-subtitle">Potvrdi brisanje profila za @Model.Name @Model.Surname.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Details", "Owners", new { id = Model.Id })">Natrag na detalje</a>
+        <a class="btn btn-outline" href="@Url.Action("Index", "Owners")">Popis vlasnika</a>
+    </div>
+</section>
+
+<section class="panel">
+    <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="form-section">
+        <div asp-validation-summary="ModelOnly" class="form-error"></div>
+
+        <div class="alert alert-warning">
+            Brisanje će ukloniti vlasnika iz baze. Ako postoje povezani podaci, operacija će biti odbijena.
+        </div>
+
+        <div class="field-list">
+            <div class="field-row">
+                <span class="field-label">Ime i prezime</span>
+                <span class="field-value">@Model.Name @Model.Surname</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">E-pošta</span>
+                <span class="field-value">@Model.Email</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Telefon</span>
+                <span class="field-value">@Model.PhoneNumber</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Adresa</span>
+                <span class="field-value">@Model.Address</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Povezani psi</span>
+                <span class="field-value">@Model.Dogs.Count</span>
+            </div>
+            <div class="field-row">
+                <span class="field-label">Povezane rezervacije</span>
+                <span class="field-value">@Model.Bookings.Count</span>
+            </div>
+        </div>
+
+        @if (hasRelations)
+        {
+            <div class="alert alert-error">
+                Vlasnika nije moguće obrisati dok ima povezane pse ili rezervacije.
+            </div>
+        }
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Obriši vlasnika</button>
+            <a class="btn btn-outline" href="@Url.Action("Details", "Owners", new { id = Model.Id })">Odustani</a>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

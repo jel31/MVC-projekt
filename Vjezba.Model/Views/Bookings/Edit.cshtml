@@ -1,0 +1,21 @@
+@model Vjezba.Model.Booking
+
+@{
+    ViewData["Title"] = "Uredi rezervaciju";
+}
+
+<section class="page-header" aria-labelledby="edit-booking">
+    <div>
+        <span class="eyebrow">Uredi rezervaciju</span>
+        <h1 id="edit-booking">Uredi rezervaciju #@Model.Id</h1>
+    </div>
+</section>
+
+<form method="post" asp-action="Edit" asp-route-id="@Model.Id">
+    @await Html.PartialAsync("_BookingForm", Model)
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Spremi promjene</button>
+        <a class="btn btn-outline" href="@Url.Action("Index", "Bookings")">Otkaži</a>
+    </div>
+</form>

@@ -1,0 +1,65 @@
+@model Vjezba.Model.Booking
+
+<div asp-validation-summary="ModelOnly" class="validation-message"></div>
+
+<div class="form-grid">
+    <div class="form-field">
+        <label>Vlasnik</label>
+        @{ ViewBag.Endpoint = "/api/autocomplete/owners"; ViewBag.InputName = "OwnerId"; ViewBag.Value = Model?.OwnerId.ToString(); ViewBag.IsRequired = true; ViewBag.RequiredMessage = "Vlasnik je obavezan."; ViewBag.RangeMessage = "Odaberite vlasnika."; }
+        @await Html.PartialAsync("~/Views/Shared/_Autocomplete.cshtml")
+        <span class="validation-message field-validation-valid" data-valmsg-for="OwnerId" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-field">
+        <label>Šetač</label>
+        @{ ViewBag.Endpoint = "/api/autocomplete/walkers"; ViewBag.InputName = "DogWalkerId"; ViewBag.Value = Model?.DogWalkerId.ToString(); ViewBag.IsRequired = true; ViewBag.RequiredMessage = "Šetač je obavezan."; ViewBag.RangeMessage = "Odaberite šetača."; }
+        @await Html.PartialAsync("~/Views/Shared/_Autocomplete.cshtml")
+        <span class="validation-message field-validation-valid" data-valmsg-for="DogWalkerId" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-field">
+        <label>Psi</label>
+        @{ ViewBag.Endpoint = "/api/autocomplete/dogs"; }
+        <div class="ac-wrapper" data-endpoint="/api/autocomplete/dogs" data-multi="true" data-input-name="DogIds">
+            <input type="text" class="form-control ac-input" placeholder="Dodaj psa..." />
+            <ul class="ac-results" hidden></ul>
+            <div class="ac-chips">
+                @if (Model?.Dogs != null && Model.Dogs.Any())
+                {
+                    foreach (var d in Model.Dogs)
+                    {
+                        <span class="ac-chip">@d.Name <button type="button" class="ac-chip-remove">×</button></span>
+                        <input type="hidden" name="DogIds" value="@d.Id" />
+                    }
+                }
+            </div>
+        </div>
+        <span class="validation-message field-validation-valid" data-valmsg-for="DogIds" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-field">
+        <label>Početak</label>
+        @{ ViewBag.Name = "StartTimeString"; ViewBag.Value = (Model != null && Model.StartTime.Year > 1901) ? Model.StartTime.ToString("d.M.yyyy H:mm") : string.Empty; }
+        @await Html.PartialAsync("~/Views/Shared/_DateTimePicker.cshtml")
+        <span class="validation-message field-validation-valid" data-valmsg-for="StartTime" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-field">
+        <label>Kraj</label>
+        @{ ViewBag.Name = "EndTimeString"; ViewBag.Value = (Model != null && Model.EndTime.Year > 1901) ? Model.EndTime.ToString("d.M.yyyy H:mm") : string.Empty; }
+        @await Html.PartialAsync("~/Views/Shared/_DateTimePicker.cshtml")
+        <span class="validation-message field-validation-valid" data-valmsg-for="EndTime" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-field">
+        <label asp-for="Status"></label>
+        <select asp-for="Status" class="form-control">
+            <option value="0">Planned</option>
+            <option value="1">Completed</option>
+            <option value="2">Cancelled</option>
+        </select>
+        <span asp-validation-for="Status" class="validation-message"></span>
+    </div>
+</div>
+
+@await Html.PartialAsync("_ValidationScriptsPartial")

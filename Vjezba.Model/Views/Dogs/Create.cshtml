@@ -1,0 +1,24 @@
+@model Vjezba.Model.Dog
+
+@{
+    ViewData["Title"] = "Dodaj psa";
+}
+
+<section class="page-header" aria-labelledby="create-dog">
+    <div>
+        <span class="eyebrow">Novi pas</span>
+        <h1 id="create-dog">Dodaj psa</h1>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Index", "Dogs")">Natrag na popis</a>
+    </div>
+</section>
+
+<form method="post" asp-action="Create">
+    @await Html.PartialAsync("_DogForm", Model)
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Spremi</button>
+        <a class="btn btn-outline" href="@Url.Action("Index", "Dogs")">Otkaži</a>
+    </div>
+</form>

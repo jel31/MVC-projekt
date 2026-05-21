@@ -4,6 +4,20 @@
     ViewData["Title"] = "Psi";
 }
 
+@section Scripts {
+    <script src="~/js/ajax-search.js" asp-append-version="true"></script>
+    <script>
+        (function () {
+            var input = document.getElementById('dogs-global-search');
+            var results = document.getElementById('dogs-search-results');
+            if (!input || !results || !window.ajaxSearch) return;
+
+            var endpoint = '/api/search/dogs';
+            window.ajaxSearch.attach({ input: input, endpoint: endpoint, container: results, pageSize: 12, debounceMs: 300, init: false, mainListSelector: '#dogs-main-list' });
+        })();
+    </script>
+}
+
 <section class="page-header" aria-labelledby="dogs-title">
     <div>
         <span class="eyebrow">Popis pasa</span>
@@ -11,6 +25,7 @@
         <p class="page-subtitle">Pregled svih pasa, njihovih vlasnika i osnovnih podataka.</p>
     </div>
     <div class="page-actions">
+        <a class="btn btn-primary" href="@Url.Action("Create", "Dogs")">Dodaj psa</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Owners")">Pogledaj vlasnike</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Home")">Natrag na početnu</a>
     </div>
@@ -20,6 +35,15 @@
     @await Html.PartialAsync("_DogFilter", Model.Filter)
 </section>
 
+<section class="search-section" aria-label="Traži pse">
+    <div id="dogs-search-container" class="search-container">
+        <label for="dogs-global-search" class="sr-only">Pretraži pse</label>
+        <input id="dogs-global-search" class="form-control" placeholder="Pretraži po imenu, pasmini ili vlasniku..." />
+    </div>
+    <div id="dogs-search-results" class="search-results" aria-live="polite"></div>
+</section>
+
+<div id="dogs-main-list">
 @if (!Model.Items.Any())
 {
     <section class="empty-state" aria-live="polite">
@@ -28,6 +52,8 @@
         <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Vrati se na početnu</a>
     </section>
 }
+
+
 else
 {
     <section class="entity-grid" aria-label="Popis pasa">
@@ -49,8 +75,11 @@ else
 
                 <div class="entity-card__actions">
                     <a class="btn btn-primary" href="@Url.Action("Details", "Dogs", new { id = dog.Id })">Detalji</a>
+                    <a class="btn btn-outline" href="@Url.Action("Edit", "Dogs", new { id = dog.Id })">Uredi</a>
+                    <a class="btn btn-outline" href="@Url.Action("Delete", "Dogs", new { id = dog.Id })">Obriši</a>
                 </div>
             </article>
         }
     </section>
 }
+</div>

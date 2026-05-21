@@ -11,6 +11,8 @@
         <p class="page-subtitle">Podaci o vlasniku, psima i njegovim šetnjama.</p>
     </div>
     <div class="page-actions">
+        <a class="btn btn-primary" href="@Url.Action("Edit", "Owners", new { id = Model.Id })">Uredi</a>
+        <a class="btn btn-outline" href="@Url.Action("Delete", "Owners", new { id = Model.Id })">Obriši</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Owners")">Natrag na popis</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Home")">Početna</a>
     </div>

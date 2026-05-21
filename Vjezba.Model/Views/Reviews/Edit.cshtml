@@ -1,0 +1,14 @@
+@model Vjezba.Model.Review
+
+@{
+    ViewData["Title"] = "Uredi recenziju";
+}
+
+<form method="post" asp-action="Edit" asp-route-id="@Model.Id">
+    @await Html.PartialAsync("_ReviewForm", Model)
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Spremi</button>
+        <a class="btn btn-outline" href="@Url.Action("Index", "Reviews")">Otkaži</a>
+    </div>
+</form>

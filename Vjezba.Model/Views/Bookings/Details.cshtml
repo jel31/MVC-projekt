@@ -11,6 +11,8 @@
         <p class="page-subtitle">Pregled termina, vlasnika, šetača, pasa i uplate.</p>
     </div>
     <div class="page-actions">
+        <a class="btn btn-primary" href="@Url.Action("Edit", "Bookings", new { id = Model.Id })">Uredi</a>
+        <a class="btn btn-outline" href="@Url.Action("Delete", "Bookings", new { id = Model.Id })">Obriši</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Bookings")">Natrag na popis</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Payments")">Uplate</a>
     </div>

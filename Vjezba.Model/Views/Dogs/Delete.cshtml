@@ -1,0 +1,38 @@
+@model Vjezba.Model.Dog
+
+@{
+    ViewData["Title"] = "Obriši psa";
+}
+
+<section class="page-header" aria-labelledby="delete-dog">
+    <div>
+        <span class="eyebrow">Ukloni</span>
+        <h1 id="delete-dog">Obriši psa</h1>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Index", "Dogs")">Natrag na popis</a>
+    </div>
+</section>
+
+<article class="detail-card">
+    <div class="section-title">
+        <h2>@Model.Name</h2>
+    </div>
+    <div class="field-list">
+        <div class="field-row">
+            <span class="field-label">Pasmina</span>
+            <span class="field-value">@Model.Breed</span>
+        </div>
+        <div class="field-row">
+            <span class="field-label">Vlasnik</span>
+            <span class="field-value">@Model.Owner.Name @Model.Owner.Surname</span>
+        </div>
+    </div>
+
+    <form method="post" asp-action="Delete" asp-route-id="@Model.Id">
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Obriši</button>
+            <a class="btn btn-outline" href="@Url.Action("Index", "Dogs")">Otkaži</a>
+        </div>
+    </form>
+</article>

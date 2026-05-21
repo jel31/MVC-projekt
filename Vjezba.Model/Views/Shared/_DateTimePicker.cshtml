@@ -1,0 +1,16 @@
+@{
+    var name = ViewBag.Name as string ?? "DateTime";
+    var value = ViewBag.Value as string ?? string.Empty;
+    var currentCulture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var defaultPlaceholder = currentCulture.StartsWith("en", System.StringComparison.OrdinalIgnoreCase)
+        ? "mm/dd/yyyy hh:mm AM"
+        : "dd.mm.yyyy hh:mm";
+    var placeholder = ViewBag.Placeholder as string ?? defaultPlaceholder;
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+
+<input type="text" name="@name" class="form-control datetime-picker" value="@value" placeholder="@placeholder" />
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/hr.js"></script>

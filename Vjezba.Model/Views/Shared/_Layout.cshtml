@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hr">
+<html lang="@System.Globalization.CultureInfo.CurrentUICulture.Name">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,6 +20,8 @@
         var isDogs = string.Equals(currentController, "Dogs", StringComparison.OrdinalIgnoreCase);
         var isPayments = string.Equals(currentController, "Payments", StringComparison.OrdinalIgnoreCase);
         var isReviews = string.Equals(currentController, "Reviews", StringComparison.OrdinalIgnoreCase);
+        var toastMessage = TempData["ToastMessage"] as string;
+        var toastType = (TempData["ToastType"] as string) ?? "success";
     }
 
     <header class="app-header">
@@ -44,8 +46,22 @@
         @RenderBody()
     </main>
 
+    @if (!string.IsNullOrWhiteSpace(toastMessage))
+    {
+        <section class="app-toast-stack" aria-live="polite" aria-atomic="true">
+            <article class="app-toast app-toast--@toastType" role="status" data-toast>
+                <p class="app-toast__message">@toastMessage</p>
+                <button type="button" class="app-toast__close" aria-label="Zatvori obavijest" data-toast-close>×</button>
+            </article>
+        </section>
+    }
+
     <footer class="app-footer">
         <p>Šapice u pokretu</p>
     </footer>
+
+    <script src="~/js/controls.js" asp-append-version="true"></script>
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

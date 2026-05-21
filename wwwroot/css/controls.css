@@ -1,0 +1,9 @@
+.ac-wrapper { position: relative; max-width: 420px; }
+.ac-results { position: absolute; z-index: 40; left: 0; right: 0; background: #fff; border: 1px solid #ddd; margin: 0; padding: 0; list-style: none; max-height: 220px; overflow: auto; }
+.ac-item { padding: 8px 12px; cursor: pointer; }
+.ac-item:hover, .ac-item:focus { background: #f3f4f6; outline: none; }
+.datetime-picker { max-width: 260px; }
+
+.ac-chips { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.ac-chip { background:#eef2ff; padding:6px 8px; border-radius:12px; display:inline-flex; align-items:center; gap:6px; }
+.ac-chip-remove { background:transparent; border:none; cursor:pointer; font-weight:600; }

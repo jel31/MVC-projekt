@@ -22,6 +22,20 @@
     };
 }
 
+@section Scripts {
+    <script src="~/js/ajax-search.js" asp-append-version="true"></script>
+    <script>
+        (function () {
+            var input = document.getElementById('bookings-global-search');
+            var results = document.getElementById('bookings-search-results');
+            if (!input || !results || !window.ajaxSearch) return;
+
+            var endpoint = '/api/search/bookings';
+            window.ajaxSearch.attach({ input: input, endpoint: endpoint, container: results, pageSize: 12, debounceMs: 300, init: false, mainListSelector: '#bookings-main-list' });
+        })();
+    </script>
+}
+
 <section class="page-header" aria-labelledby="bookings-title">
     <div>
         <span class="eyebrow">Raspored šetnji</span>
@@ -29,11 +43,21 @@
         <p class="page-subtitle">Pregledajte svaku šetnju prema vlasniku, šetaču, terminu i statusu.</p>
     </div>
     <div class="page-actions">
+        <a class="btn btn-primary" href="@Url.Action("Create", "Bookings")">Dodaj rezervaciju</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Payments")">Pogledaj uplate</a>
         <a class="btn btn-outline" href="@Url.Action("Index", "Home")">Natrag na početnu</a>
     </div>
 </section>
 
+<section class="search-section" aria-label="Traži rezervacije">
+    <div id="bookings-search-container" class="search-container">
+        <label for="bookings-global-search" class="sr-only">Pretraži rezervacije</label>
+        <input id="bookings-global-search" class="form-control" placeholder="Pretraži po vlasniku ili šetaču..." />
+    </div>
+    <div id="bookings-search-results" class="search-results" aria-live="polite"></div>
+</section>
+
+<div id="bookings-main-list">
 @if (!Model.Any())
 {
     <section class="empty-state" aria-live="polite">
@@ -42,6 +66,8 @@
         <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Vrati se na početnu</a>
     </section>
 }
+
+
 else
 {
     <section class="entity-grid" aria-label="Popis rezervacija">
@@ -68,8 +94,11 @@ else
 
                 <div class="entity-card__actions">
                     <a class="btn btn-primary" href="@Url.Action("Details", "Bookings", new { id = booking.Id })">Detalji</a>
+                    <a class="btn btn-outline" href="@Url.Action("Edit", "Bookings", new { id = booking.Id })">Uredi</a>
+                    <a class="btn btn-outline" href="@Url.Action("Delete", "Bookings", new { id = booking.Id })">Obriši</a>
                 </div>
             </article>
         }
     </section>
 }
+</div>

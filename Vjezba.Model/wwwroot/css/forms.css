@@ -1,13 +1,15 @@
 /* Form & Input Styling - Clean, Bubbly, User-Friendly */
 
 input[type="text"],
+input[type="search"],
 input[type="email"],
 input[type="password"],
 input[type="number"],
 input[type="date"],
 input[type="time"],
 textarea,
-select {
+select,
+.form-control {
     font-family: "Inter", "Segoe UI", sans-serif;
     font-size: 1rem;
     padding: 0.75rem 1rem;
@@ -21,17 +23,36 @@ select {
 }
 
 input[type="text"]:focus,
+input[type="search"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus,
 input[type="time"]:focus,
 textarea:focus,
-select:focus {
+select:focus,
+.form-control:focus {
     outline: none;
     border-color: var(--accent-2);
     background: var(--surface-alt);
     box-shadow: 0 0 0 3px rgba(139, 211, 221, 0.1);
+}
+
+input.input-validation-error,
+textarea.input-validation-error,
+select.input-validation-error {
+    border-color: #e63946;
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.08);
+}
+
+.field-validation-error,
+.validation-summary-errors {
+    color: #e63946;
+}
+
+.validation-summary-errors ul {
+    margin: 0.25rem 0 0;
+    padding-left: 1.2rem;
 }
 
 textarea {
@@ -59,6 +80,13 @@ label {
     display: flex;
     align-items: center;
     gap: 0.35rem;
+}
+
+.validation-message {
+    color: #e63946;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    display: block;
 }
 
 .form-success {
@@ -166,6 +194,13 @@ textarea:disabled {
 .loading {
     opacity: 0.7;
     pointer-events: none;
+}
+
+.search-section .search-container .form-control {
+    min-height: 3.2rem;
+    padding: 0.9rem 1.1rem;
+    font-size: 1.02rem;
+    border-radius: var(--radius-pill);
 }
 
 /* Consistency & Spacing */

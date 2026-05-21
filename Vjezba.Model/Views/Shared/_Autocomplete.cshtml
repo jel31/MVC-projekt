@@ -1,0 +1,23 @@
+@{
+    var endpoint = ViewBag.Endpoint as string ?? "/api/autocomplete/owners";
+    var inputName = ViewBag.InputName as string ?? "selectedId";
+    var inputValue = ViewBag.Value as string ?? string.Empty;
+    var placeholder = ViewBag.Placeholder as string ?? "Pretraži...";
+    var isRequired = (bool?)ViewBag.IsRequired ?? false;
+    var requiredMessage = ViewBag.RequiredMessage as string ?? "Polje je obavezno.";
+    var rangeMessage = ViewBag.RangeMessage as string ?? "Odaberite ispravnu vrijednost.";
+}
+
+<div class="ac-wrapper" data-endpoint="@endpoint">
+    <input type="text" class="form-control ac-input" placeholder="@placeholder" autocomplete="off" />
+    <input type="hidden"
+           name="@inputName"
+           class="ac-value"
+           value="@inputValue"
+           data-val="@(isRequired ? "true" : "false")"
+           data-val-required="@(isRequired ? requiredMessage : null)"
+           data-val-range="@(isRequired ? rangeMessage : null)"
+           data-val-range-min="@(isRequired ? "1" : null)"
+           data-val-range-max="@(isRequired ? "2147483647" : null)" />
+    <ul class="ac-results" hidden></ul>
+</div>

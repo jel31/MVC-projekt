@@ -1,0 +1,31 @@
+@model Vjezba.Model.DogOwner
+
+@{
+    ViewData["Title"] = "Novi vlasnik";
+}
+
+<section class="page-header" aria-labelledby="owner-create-title">
+    <div>
+        <span class="eyebrow">CRUD vlasnici</span>
+        <h1 id="owner-create-title">Dodaj vlasnika</h1>
+        <p class="page-subtitle">Unesi osnovne podatke za novi profil vlasnika.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Index", "Owners")">Natrag na popis</a>
+    </div>
+</section>
+
+<section class="panel">
+    <form asp-action="Create" method="post" class="form-section">
+        <partial name="_OwnerForm" model="Model" />
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Spremi vlasnika</button>
+            <a class="btn btn-outline" href="@Url.Action("Index", "Owners")">Odustani</a>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

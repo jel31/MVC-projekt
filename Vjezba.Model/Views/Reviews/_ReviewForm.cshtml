@@ -1,0 +1,40 @@
+@model Vjezba.Model.Review
+
+<div asp-validation-summary="ModelOnly" class="validation-message"></div>
+
+<div class="form-grid">
+    <div class="form-field">
+        <label>Vlasnik</label>
+        @{ ViewBag.Endpoint = "/api/autocomplete/owners"; ViewBag.InputName = "OwnerId"; ViewBag.Value = Model?.OwnerId.ToString(); ViewBag.IsRequired = true; ViewBag.RequiredMessage = "Vlasnik je obavezan."; ViewBag.RangeMessage = "Odaberite vlasnika."; }
+        @await Html.PartialAsync("~/Views/Shared/_Autocomplete.cshtml")
+        <span class="validation-message field-validation-valid" data-valmsg-for="OwnerId" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-field">
+        <label>Šetač</label>
+        @{ ViewBag.Endpoint = "/api/autocomplete/walkers"; ViewBag.InputName = "DogWalkerId"; ViewBag.Value = Model?.DogWalkerId.ToString(); ViewBag.IsRequired = true; ViewBag.RequiredMessage = "Šetač je obavezan."; ViewBag.RangeMessage = "Odaberite šetača."; }
+        @await Html.PartialAsync("~/Views/Shared/_Autocomplete.cshtml")
+        <span class="validation-message field-validation-valid" data-valmsg-for="DogWalkerId" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-field">
+        <label>Ocjena</label>
+        <input asp-for="Rating" type="number" min="0" max="5" step="0.5" class="form-control" />
+        <span asp-validation-for="Rating" class="validation-message"></span>
+    </div>
+
+    <div class="form-field">
+        <label>Komentar</label>
+        <textarea asp-for="Comment" class="form-control"></textarea>
+        <span asp-validation-for="Comment" class="validation-message"></span>
+    </div>
+
+    <div class="form-field">
+        <label>Datum</label>
+        @{ ViewBag.Name = "Date"; ViewBag.Value = (Model != null && Model.Date.Year > 1901) ? Model.Date.ToString("d.M.yyyy H:mm") : string.Empty; }
+        @await Html.PartialAsync("~/Views/Shared/_DateTimePicker.cshtml")
+        <span asp-validation-for="Date" class="validation-message"></span>
+    </div>
+</div>
+
+@await Html.PartialAsync("_ValidationScriptsPartial")

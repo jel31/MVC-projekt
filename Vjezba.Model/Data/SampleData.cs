@@ -245,7 +245,7 @@ public static class SampleData
         Reviews.AddRange(new[] { review1, review2 });
     }
 
-    public static void Initialize(ApplicationDbContext context)
+    public static void Initialize(ApplicationDbContext context, bool includeRelations = false)
     {
         if (context.Owners.Any())
             return;  // Database already seeded
@@ -253,9 +253,14 @@ public static class SampleData
         context.Owners.AddRange(Owners);
         context.Walkers.AddRange(Walkers);
         context.Dogs.AddRange(Dogs);
-        context.Bookings.AddRange(Bookings);
-        context.Payments.AddRange(Payments);
-        context.Reviews.AddRange(Reviews);
+
+        if (includeRelations)
+        {
+            context.Bookings.AddRange(Bookings);
+            context.Payments.AddRange(Payments);
+            context.Reviews.AddRange(Reviews);
+        }
+
         context.SaveChanges();
     }
 }

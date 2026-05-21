@@ -1,0 +1,21 @@
+@model Vjezba.Model.Booking
+
+@{
+    ViewData["Title"] = "Dodaj rezervaciju";
+}
+
+<section class="page-header" aria-labelledby="create-booking">
+    <div>
+        <span class="eyebrow">Nova rezervacija</span>
+        <h1 id="create-booking">Dodaj rezervaciju</h1>
+    </div>
+</section>
+
+<form method="post" asp-action="Create">
+    @await Html.PartialAsync("_BookingForm", Model)
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Spremi rezervaciju</button>
+        <a class="btn btn-outline" href="@Url.Action("Index", "Bookings")">Otkaži</a>
+    </div>
+</form>

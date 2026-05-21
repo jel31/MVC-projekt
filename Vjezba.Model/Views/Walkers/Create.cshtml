@@ -1,0 +1,31 @@
+@model Vjezba.Model.DogWalker
+
+@{
+    ViewData["Title"] = "Novi šetač";
+}
+
+<section class="page-header" aria-labelledby="walker-create-title">
+    <div>
+        <span class="eyebrow">CRUD šetači</span>
+        <h1 id="walker-create-title">Dodaj šetača</h1>
+        <p class="page-subtitle">Unesi osnovne podatke i satnicu za novog šetača.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-outline" href="@Url.Action("Index", "Walkers")">Natrag na popis</a>
+    </div>
+</section>
+
+<section class="panel">
+    <form asp-action="Create" method="post" class="form-section">
+        <partial name="_WalkerForm" model="Model" />
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Spremi šetača</button>
+            <a class="btn btn-outline" href="@Url.Action("Index", "Walkers")">Odustani</a>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
